@@ -23,6 +23,7 @@ namespace Plugin.BLE.iOS
         /// </summary>
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
 
+        //Test
         public Adapter(CBCentralManager centralManager, IBleCentralManagerDelegate bleCentralManagerDelegate)
         {
             _centralManager = centralManager;

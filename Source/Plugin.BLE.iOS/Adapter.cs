@@ -263,7 +263,16 @@ namespace Plugin.BLE.iOS
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
-            return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
+            return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate,d.Name,d.RSSI?.Int32Value??0,new List<AdvertisementRecord>())).Cast<IDevice>().ToList();
+        }
+
+        public override IReadOnlyList<IDevice> GetKnownDevices(Guid[] guids)
+        {
+            var nsUuids = guids.Select(g => new NSUuid(g.ToString())).ToArray();
+
+            var peripherials = _centralManager.RetrievePeripheralsWithIdentifiers(nsUuids);
+
+            return peripherials.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
         }
 
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken, bool configureAwait = false)

@@ -22,8 +22,7 @@ namespace Plugin.BLE.iOS
         /// Helps to detect connection lost events.
         /// </summary>
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
-
-        //Test
+               
         public Adapter(CBCentralManager centralManager, IBleCentralManagerDelegate bleCentralManagerDelegate)
         {
             _centralManager = centralManager;
@@ -252,7 +251,7 @@ namespace Plugin.BLE.iOS
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
-        }
+        } 
 
         public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
